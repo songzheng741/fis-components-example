@@ -1,0 +1,7 @@
+{
+  "repos": "git@github.com:jquery/jquery.git",
+  "version": "1.11.1",
+  "build": "npm run build",
+  "main": "jquery.js",
+  "name": "jquery"
+}

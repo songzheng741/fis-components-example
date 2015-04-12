@@ -1,0 +1,17 @@
+@iris-navbar-height:                              50px;
+@iris-form-icon-height:                           30px;
+@iris-navbar-search-input-border-radius:          20px;
+@iris-form-icon-background-hover:                 #F1F1F1;
+
+
+.iris-form-icon {
+    top: (@iris-navbar-height - @iris-form-icon-height) / 2;
+
+    > input[type="search"] {
+        border-radius: @iris-navbar-search-input-border-radius;
+        &:hover,
+        &:focus {
+            background: @iris-form-icon-background-hover;
+        }
+    }
+}

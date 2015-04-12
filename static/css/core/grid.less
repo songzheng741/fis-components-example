@@ -1,0 +1,173 @@
+//提供一个栅栏系统
+@grid-gutter-horizontal:           25px;
+@grid-gutter-vertical:             25px;
+
+
+@grid-divider-border:              #ddd;
+@grid-divider-border-width:        1px;
+
+/*
+ * 1.使grid更加健壮，以便使其可以像lists那样可以其他块元素那样使用
+ */
+.iris-grid {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+
+  /* 1 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * DEPRECATED
+ * Micro clearfix
+ * 不能用 'table' 因为在webkit下当它成为flex-item时它会创建一个1像素的图像
+ */
+.iris-grid:before,
+.iris-grid:after {
+  content: "";
+  display: block;
+  overflow: hidden;
+}
+
+.iris-grid:after {
+  clear: both;
+}
+
+/*
+ * grid cell
+ * 1.空间分配完全基于内容像素
+ * 2.使grid更加健壮，以便使其可以像lists那样可以其他块元素那样使用
+ * 3.已不推荐用'float'来兼容IE9
+ */
+.iris-grid > * {
+  /* 1 */
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  float: left;
+}
+
+
+.iris > * > :last-child {
+  margin-bottom: 0;
+}
+
+/* grid槽 */
+
+/* =================================
+ * 默认槽
+ */
+
+/* 水平 */
+.iris-grid {
+  margin-left: -@grid-gutter-horizontal;
+}
+.iris-grid > * {
+  padding: @grid-gutter-horizontal;
+}
+
+/* 垂直 */
+.iris-grid + .iris-grid,
+.iris-grid-margin,
+.iris-grid > * > .iris-panel + .iris-panel {
+  margin-top: @grid-gutter-vertical;
+}
+
+/* ================================== */
+
+/* ==================================
+ * grid cell的宽度
+ */
+[class*='iris-width'],
+[class*='iris-container'] {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.iris-container {
+    padding: 10px;
+}
+
+/* 整行 */
+.iris-width-1-1 {
+    width: 100%;
+}
+
+/* 2列 */
+.iris-width-1-2,
+.iris-width-2-4,
+.iris-width-3-6,
+.iris-width-5-10 {
+    width: 50%;
+}
+
+/* 3列 */
+.iris-width-1-3,
+.iris-width-2-6 {
+    width: 33.333%;
+}
+.iris-width-2-3,
+.iris-width-4-6 {
+    width: 66.666%;
+}
+
+/* 4列 */
+.iris-width-1-4 {
+    width: 25%;
+}
+.iris-width-3-4 {
+    width: 75%;
+}
+
+/* 5列 */
+.iris-width-1-5,
+.iris-width-2-10 {
+    width: 20%;
+}
+.iris-width-2-5,
+.iris-width-4-10 {
+    width: 40%;
+}
+.iris-width-3-5,
+.iris-width-6-10 {
+    width: 60%;
+}
+.iris-width-4-5,
+.iris-width-8-10 {
+    width: 80%;
+}
+
+/* 6列 */
+.iris-width-1-6 {
+    width: 16.666%;
+}
+.iris-width-5-6 {
+    width: 83.333%;
+}
+
+/* 10列 */
+.iris-width-1-10 {
+    width: 10%;
+}
+.iris-width-3-10 {
+    width: 30%;
+}
+.iris-width-7-10 {
+    width: 70%;
+}
+.iris-width-9-10 {
+    width: 90%;
+}
+
+
+
+

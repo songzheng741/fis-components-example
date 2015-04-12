@@ -1,0 +1,11 @@
+{
+  "main": "test.js",
+  "protocol": "gitlab",
+  "gitlab": {
+    "author": "tuanb-fe"
+  },
+  "dependencies": [
+    "jquery@1.11.2"
+  ],
+  "name": "test"
+}

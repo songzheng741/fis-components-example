@@ -1,0 +1,138 @@
+@iris-box-background:                    #232B2D;
+@left-sidebar-width:                     240px;
+@content-background:                     #F1F1F1;
+
+@nav-font-color:                         #909C9F;
+@nav-font-color-active:                  #FFFFFF;
+@left-sidebar-margin-top:                20px;
+
+/*
+ * clear fix
+ */
+.iris-box:before,
+.iris-box:after {
+    content: "";
+    display: block;
+}
+
+.iris-box:after {
+    clear: both;
+}
+
+.iris-box {
+    background: @iris-box-background;
+    > .left-sidebar {
+        width: @left-sidebar-width;
+        height: 100%;
+        float: left;
+    }
+    > .content {
+        width: auto;
+        height: 1000px;
+        background: @content-background;
+        margin-left: @left-sidebar-width;
+    }
+}
+
+.user-menu {
+    height: 90px;
+    border-bottom: 1px solid #2E393B;
+    font-size: 20px;
+    color: #80968C;
+}
+
+.user-menu > div {
+    float: left;
+}
+.user-info {
+    margin-left: 50px;
+    margin-top: 20px;
+    > .welcome {
+      font-weight: 100;
+      font-size: 10px;
+      font-style: italic;
+    }
+    > .name {
+      font-weight: 400;
+    }
+}
+
+.user-message {
+    position: relative;
+}
+.user-message a.iris-icon-bell-o {
+    font-weight: bold;
+    margin-top: 42px;
+    margin-left: 5px;
+    color: #fff;
+}
+.user-message span {
+    position: absolute;
+    font-size: 14px;
+    font-weight: bold;
+    bottom: 2px;
+    left: 26px;
+    color: #fff;
+}
+
+
+.iris-nav {
+    margin-top: @left-sidebar-margin-top;
+
+}
+
+.iris-nav li > a {
+    color: @nav-font-color;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    &:hover {
+        background: #23BAB5;
+        color: darken(@nav-font-color-active, 10%);
+    }
+}
+
+.iris-nav li > a > i:last-child {
+  position: relative;
+  top: 2px;
+}
+
+.iris-nav li:not(.has-child) {
+    &.active {
+        a {
+            color: @nav-font-color-active;
+            background: #1A2022;
+            border-left: 4px solid #23bab5;
+        }
+    }
+}
+
+.iris-nav li.has-child {
+    > a {
+        > i {
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+    }
+    &.active {
+        > a {
+            background: #EEEEEE;
+            color: #80969C;
+            > i:last-child {
+                transform:rotate(90deg);
+            }
+        }
+    }
+}
+
+.iris-nav li.has-child > ul {
+    background: #293235;
+}
+
+.iris-nav li > a[aria-expanded='open'] {
+
+}

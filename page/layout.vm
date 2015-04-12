@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+#html("iris:static/js/mod.js")
+    #head()
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            #block("head_title")
+            #end
+        </title>
+
+        #require('iris:static/css/iris.less')
+        #require('iris:static/css/custom.less')
+
+        #script()
+            require('iris:static/js/core/iris.js')
+        #end
+
+    #end ## end head
+
+        #block("head_content")
+
+        #end
+
+    #body()
+
+        #block("main_content")
+
+        #end
+
+    #end## end body
+#end## end html

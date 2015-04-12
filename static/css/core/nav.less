@@ -1,0 +1,48 @@
+@nav-padding-vertical:                  15px;
+@nav-padding-horizontal:                20px;
+@nav-font-size:                         16px;
+
+.iris-nav,
+.iris-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.iris-nav li {
+    position: relative;
+}
+
+.iris-nav li > a {
+    display: block;
+    text-decoration: none;
+    padding: @nav-padding-vertical @nav-padding-horizontal;
+}
+
+
+
+.iris-nav li > a > i,
+.iris-nav li > a > span {
+    line-height: @nav-font-size;
+    height: @nav-font-size;
+}
+
+.iris-nav li > a > i {
+    margin: 0 10px;
+}
+
+.iris-nav li > a > i:last-child {
+    font-size: 8px;
+}
+
+
+/*
+ * 子菜单样式
+ */
+.iris-nav ul {
+    display: none;
+}
+
+.iris-nav li.active > a + ul {
+    display: block;
+}

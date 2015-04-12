@@ -1,0 +1,304 @@
+/*
+ * ===========================
+ * form
+ */
+@form-height:                                   30px;
+@form-padding:                                  4px 6px;
+@form-border:                                   #ddd;
+@form-border-width:                             1px;
+@form-background:                               #fff;
+@form-color:                                    #444;
+@form-border-radius:                            4px;
+
+@form-focus-border:                             #99baca;
+@form-focus-background:                         #f5fbfe;
+@form-focus-color:                              #444;
+
+@form-disabled-border:                          #ddd;
+@form-disabled-background:                      #f5f5f5;
+@form-disabled-color:                           #999;
+
+@form-placeholder-color:                        #999;
+
+@form-gutter:                                   15px;
+
+@form-legend-border:                            #ddd;
+@form-legend-border-width:                      1px;
+@form-legend-font-size:                         18px;
+@form-legend-line-height:                       30px;
+
+@form-small-height:                             25px;
+@form-large-height:                             40px;
+@form-small-padding:                            3px 3px;
+@form-large-padding:                            8px 6px;
+@form-small-font-size:                          12px;
+@form-large-font-size:                          16px;
+
+@form-danger-border:                            #dc8d99;
+@form-danger-background:                        #fff7f8;
+@form-danger-color:                             #d85030;
+
+@form-success-border:                           #8ec73b;
+@form-success-background:                       #fafff2;
+@form-success-color:                            #659f13;
+
+@form-blank-border:                             #ddd;
+@form-blank-border-style:                       dashed;
+
+@form-mini-width:                               40px;
+@form-small-width:                              130px;
+@form-medium-width:                             200px;
+@form-large-width:                              500px;
+
+@form-help-inline-margin-left:                  10px;
+@form-help-block-margin-top:                    5px;
+
+@form-controls-condensed-margin-vertical:       5px;
+
+@form-stacked-margin-bottom:                    5px;
+@form-stacked-font-weight:                      bold;
+
+@form-horizontal-label-width:                   200px;
+@form-horizontal-label-margin-top:              5px;
+@form-horizontal-controls-margin-left:          215px;
+@form-horizontal-controls-text-padding-top:     5px;
+
+@form-icon-width:                               30px;
+@form-icon-font-size:                           14px;
+@form-icon-color:                               #999;
+
+/*
+ * 1. 表单的盒模型默认为‘content-box’除了设置'border-box'的元素除外
+ * 2. firefox/ie 和 chrome/safari/opera 'margin'默认不同
+ * 3. 移除ios的border-radius
+ * 4. 矫正有的游览器未继承字体和前景色
+ */
+.iris-form input,
+.iris-form textarea,
+.iris-form select {
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  border-radius: 0;
+  /* 4 */
+  font: inherit;
+  color: inherit;
+}
+
+
+/*
+ * 仅有火狐会继承text-transform
+ */
+.iris-form select {
+    text-transform: none;
+}
+
+/*
+ * 1. 修正font未被正确的继承
+ * 2. 不继承font-weight,而用font-weight代替
+ */
+.iris-form optgroup {
+    /* 1 */
+    font: inherit;
+    /* 2 */
+    font-weight: bold;
+}
+
+/*
+ * 移除firefox4+的inner border和padding
+ */
+.iris-form input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 移除IE8/9/10额外的padding
+ */
+.iris-form input[type="checkbox"],
+.iris-form input[type="radio"] {
+    padding: 0;
+}
+
+/*
+ * 设置可点击元素光标
+ */
+.iris-form input[type="checkbox"]:not(:disabled),
+.iris-form input[type="radio"]:not(:disabled) {
+    cursor: pointer;
+}
+
+/*
+ * 移除ios默认样式
+ */
+.iris-form textarea,
+.iris-form input:not([type]),
+.iris-form input[type="text"],
+.iris-form input[type="password"],
+.iris-form input[type="email"],
+.iris-form input[type="url"],
+.iris-form input[type="search"],
+.iris-form input[type="tel"],
+.iris-form input[type="number"],
+.iris-form input[type="datetime"] {
+    -webkit-appearance: none;
+}
+
+/*
+ * 移除os x上search input的padding和取消按钮
+ */
+.iris-form input[type="search"]::-webkit-search-cancel-button,
+.iris-form input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/*
+ * 修复某些字体大小下，会导致decrement button的cursor style
+ * 由default变成text的bug.
+ */
+.iris-form input[type="number"]::-webkit-inner-spin-button,
+.iris-form input[type="number"]::-webkit-inner-spin-button
+
+.iris-form fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/*
+ * 1. 移除IE8/9/10/11默认的垂直滚动条
+ * 2. 设置vertical-align增强可读性
+ */
+.iris-form textarea {
+    /* 1 */
+    overflow: auto;
+    /* 2 */
+    vertical-align: top;
+}
+
+/*
+ * 移除firefox里placeholder的透明度
+ */
+.iris-form ::-moz-placeholder {
+    opacity: 1;
+}
+
+/*
+ *  移除火狐 invalid controls的box-shadow
+ */
+.iris-form :invalid {
+    box-shadow: none;
+}
+
+
+.iris-form input:not([type="radio"]):not([type="checkbox"]),
+.iris-form select {
+    vertical-align: middle;
+}
+
+.iris-form > :last-child {
+    margin-bottom: 0;
+}
+
+
+.iris-form select,
+.iris-form textarea,
+.iris-form input:not([type]),
+.iris-form input[type="text"],
+.iris-form input[type="password"],
+.iris-form input[type="datetime"],
+.iris-form input[type="datetime-local"],
+.iris-form input[type="date"],
+.iris-form input[type="month"],
+.iris-form input[type="time"],
+.iris-form input[type="week"],
+.iris-form input[type="number"],
+.iris-form input[type="email"],
+.iris-form input[type="url"],
+.iris-form input[type="search"],
+.iris-form input[type="tel"],
+.iris-form input[type="color"] {
+
+  height: @form-height;
+  max-width: 100%;
+  padding: @form-padding;
+  border: @form-border-width solid @form-border;
+  border-radius: @form-border-radius;
+  background: @form-background;
+  color: @form-color;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  &:focus {
+    border-color: @form-focus-border;
+    outline: 0;
+    background: @form-focus-background;
+    color: @form-focus-color;
+  }
+  &:disabled {
+    border-color: @form-disabled-border;
+    background-color: @form-disabled-background;
+    color: @form-disabled-color;
+  }
+}
+
+.iris-form :-ms-input-placeholder {
+    color: @form-placeholder-color !important;
+}
+.iris-form ::-moz-placeholder {
+    color: @form-placeholder-color;
+}
+.iris-form ::-webkit-input-placeholder {
+    color: @form-placeholder-color;
+}
+.iris-form :disabled:-ms-input-placeholder {
+    color: @form-disabled-color !important;
+}
+.iris-form :disabled::-moz-placeholder {
+    color: @form-disabled-color;
+}
+.iris-form :disabled::-webkit-input-placeholder {
+    color: @form-disabled-color;
+}
+
+/*
+ * ============================
+ * form-icon
+ * 1. 自适应内容
+ * 2. 方便icon定位
+ * 3. 避免inline-block影响
+ */
+.iris-form-icon {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+}
+
+/*
+ * 1.用margin-top为负fixed top50% 多出一半的字体大小，使其正好居中
+ */
+.iris-form-icon > [class*="iris-icon-"] {
+    position: absolute;
+
+    /* 1 */
+    top: 50%;
+    margin-top: round(@form-icon-font-size / -2);
+    width: @form-icon-width;
+
+    font-size: @form-icon-font-size;
+    color: @form-icon-color;
+    text-align: center;
+
+    /* 2 */
+    pointer-events: none;
+}
+
+.iris-form-icon > input {
+    padding-left: @form-icon-width !important;
+}
+

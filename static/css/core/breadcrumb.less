@@ -1,0 +1,45 @@
+@breadcrumb-height:                                60px;
+@breadcrumb-vertical-padding:                      15px;
+@breadcrumb-horizontal-padding:                    15px;
+@breadcrumb-font-size:                             16px;
+@breadcrumb-font-size-active:                      24px;
+@breadcrumb-divider:                               "》";
+@breadcrumb-divider-margin:                        8px;
+
+
+/*
+ * 1. 移除inline-block由不可打印字符带来的空白间距
+ */
+.iris-breadcrumb {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 1 */
+    font-size: 0.001px;
+}
+
+.iris-breadcrumb {
+    font-size: @breadcrumb-font-size;
+    height: @breadcrumb-height;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: @breadcrumb-vertical-padding @breadcrumb-horizontal-padding;
+}
+
+.iris-breadcrumb > li,
+.iris-breadcrumb > li > a,
+.iris-breadcrumb > span {
+    display: inline-block;
+    line-height: @breadcrumb-height - 2 * @breadcrumb-vertical-padding;
+    &.active {
+        font-size: @breadcrumb-font-size-active;
+    }
+}
+
+.iris-breadcrumb > li:nth-child(n+2):before {
+  color: #ADAFB0;
+  content: @breadcrumb-divider;
+  display: inline-block;
+  margin: 0 @breadcrumb-divider-margin;
+}
