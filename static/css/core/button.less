@@ -1,0 +1,86 @@
+@button-height:                                 30px;
+@button-line-height:                            30px;
+@button-padding-horizontal:                     12px;
+@button-font-size:                              1rem;
+
+@button-background:                             #eee;
+@button-color:                                  #444;
+@button-hover-background:                       #f5f5f5;
+@button-hover-color:                            #444;
+@button-active-background:                      #ddd;
+@button-active-color:                           #444;
+
+@button-primary-background:                     #00a8e6;
+@button-primary-color:                          #fff;
+@button-primary-hover-background:               #35b3ee;
+@button-primary-hover-color:                    #fff;
+@button-primary-active-background:              #0091ca;
+@button-primary-active-color:                   #fff;
+
+/*
+ * 移除Firefox4+获得焦点时的边框和内边距
+ */
+.iris-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 1. 确保iso按钮的外观
+ * 2. 移除Chrome、safari和Opera的margin
+ * 3. 移除button的border
+ * 4. 在IE8/9/10/11中overflow被设置为hidden
+ * 5. 统一button元素font、color属性不能被继承的不一致
+ * 6. IE和FireFox
+ * 7. a标签水平居中必须
+ */
+.iris-button {
+    /* 1 */
+    -webkit-appearance: none;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border: none;
+    /* 4 */
+    overflow: visible;
+    /* 5 */
+    font: inherit;
+    color: @button-color;
+    /* 6 */
+    text-transform: none;
+
+    display: inline-block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 @button-padding-horizontal;
+    background: @button-background;
+    vertical-align: middle;
+    line-height: @button-line-height;
+    min-height: @button-height;
+    font-size: @button-font-size;
+    text-decoration: none;
+
+    /* 7 */
+    text-align: center;
+}
+
+.iris-button:not(:disabled) {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/*
+ * Hover
+ * 1. 移除默认的outline样式
+ * 2. 移除a标签默认text-decoration
+ */
+
+.iris-button:hover,
+.iris-button:focus {
+  background-color: @button-hover-background;
+  color: @button-hover-color;
+  /* 1 */
+  outline: none;
+  /* 2 */
+  text-decoration: none;
+}

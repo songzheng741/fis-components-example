@@ -1,0 +1,70 @@
+#extends('layout.vm')
+
+#block("head_title")
+测试
+#end
+
+#block("head_content")
+#end
+
+#block("main_content")
+
+#widget("iris:widget/header/header.vm")
+
+<div class="iris-box">
+    <div class="left-sidebar">
+        <div class="user-menu">
+            <img src="" alt=""/>
+            <div class="user-info">
+                <div class="welcome">Welcome,</div>
+                <div class="name">zheng,song</div>
+            </div>
+            <div class="user-message">
+
+            </div>
+        </div>
+        <ul class="iris-nav">
+            <li class="active has-child">
+                <a href="#">
+                    <i class="iris-icon-list-ul"></i>
+                    <span>元素</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="#">面包屑导航</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">模态对话框</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="breadcrumb-holder iris-width-1-1">
+            <ul class="iris-breadcrumb">
+                <li>
+                    <a href="#">元素</a>
+                </li>
+                <li>
+                    <a href="#">模态对话框</a>
+                </li>
+            </ul>
+        </div>
+        <div class="iris-width-1-1">
+            <div class="iris-container">
+                <a href="" class="iris-button">Open</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+#widget("iris:widget/footer/footer.vm")
+
+#end
+
+#script()
+
+#end
+
+#end

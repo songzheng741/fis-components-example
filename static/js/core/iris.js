@@ -95,4 +95,7 @@
         document.bootstrap();
     });
 
+    var utils = iris.utils = {};
+
+
 });
