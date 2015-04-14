@@ -1,0 +1,57 @@
+@overlay-z-index:                              1010px;
+@overlay-background:                           rgba(0,0,0,0.6);
+
+/*
+ * 1. 默认
+ * 2. 占满body
+ * 3. 允许内容滚动
+ */
+.iris-overlay-fullscreen {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: @overlay-z-index;
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    background: @overlay-background;
+
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.iris-overlay {
+    display: none;
+    position: absolute;
+    z-index: @overlay-z-index;
+    background: @overlay-background;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.iris-overlay-fullscreen.iris-open,
+.iris-overlay.iris-open {
+    opacity: 1;
+    display: block;
+}

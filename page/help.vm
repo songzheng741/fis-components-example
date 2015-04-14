@@ -47,13 +47,13 @@
                     <a href="#">元素</a>
                 </li>
                 <li>
-                    <a href="#">模态对话框</a>
+                    <a href="#">遮罩</a>
                 </li>
             </ul>
         </div>
         <div class="iris-width-1-1">
             <div class="iris-container">
-                <a href="" class="iris-button">Open</a>
+                <a href="#l" id="mark-btn" class="iris-button">Open</a>
             </div>
         </div>
     </div>
@@ -64,7 +64,11 @@
 #end
 
 #script()
-
+    var $ = require('jquery');
+    $('#mark-btn').click(function(e) {
+        e.preventDefault();
+        $('body').overlay().toggle();
+    })
 #end
 
 #end
