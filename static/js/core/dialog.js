@@ -1,13 +1,17 @@
 "use strict";
 
+var active = false;
+
 iris.registe('dialog', {
 
     defaults: {
         remote: false,
         width: 600,
-        modal: true,
         content: '',
-        btns: {}
+        btns: {
+
+        },
+        modal: true
     },
 
     init: function() {
@@ -25,13 +29,25 @@ iris.registe('dialog', {
             this.setContent(this.content);
         }
 
-        this.$head = $('<div class="iris-dialog-head"></div>');
-        this.$content = $('<div class="iris-dialog-content"></div>');
-        this.$footer = $('<div class="iris-dialog-footer"></div>');
+        this.$container.append(this.$content);
+        if (config.title) {
+            this.$head = $('<div class="iris-dialog-head"></div>').html('<h2>' + config.title + '</h2>');
+            $('body').append(this.$head);
+        }
+        $('body').append(this.$container);
+
+        if (!$.isEmptyObject(config.btns)) {
+            this.$footer = $('<div class="iris-dialog-footer"></div>');
+
+            $('body').append(this.$footer);
+        }
+
     },
 
     show: function() {
 
+        this.$container.addClass('iris-open');
+        this.$container.attr('aria-dialog-show', 'true')
     },
 
     hide: function() {
@@ -40,6 +56,14 @@ iris.registe('dialog', {
 
     setContent: function() {
         var config = this.config;
+    },
+
+    setPosition: function() {
+
+    },
+
+    isActive: function() {
+        return this == active;
     }
 
 });

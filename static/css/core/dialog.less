@@ -3,6 +3,7 @@
 @iris-dialog-background: #fff;
 @iris-dialog-head-background: #fafafa;
 @iris-dialog-footer-background: #fafafa;
+@iris-dialog-content-min-height: 100px;
 
 /*
  * ==========================
@@ -18,26 +19,43 @@
     /* 2 */
     margin: @iris-dialog-margin;
     /* 3 */
-    display: none;
     opacity: 0;
 
     padding: @iris-dialog-padding;
     background: @iris-dialog-background;
     border-radius: 4px;
 
-    -webkik-transition: opacity .3s linear, transform .3s ease-out;
-    transition: opacity .3s linear, transform .3s ease-out;
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+
+
+    -webkik-transition: all 2s linear;
+    transition: all 2s linear;
 }
 
+.iris-dialog.iris-open {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+/*
+ * 1. 将dialog容器的上、左、右padding抹去
+ */
 .iris-dialog > .iris-head {
+    /* 1 */
+    margin: -@iris-dialog-padding -@iris-dialog-padding 20px -@iris-dialog-padding;
 
+    background: @iris-dialog-head-background;
 }
 
-.iris-dialog > .iris-content {
-
+.iris-dialog > .iris-dialog-content {
+    min-height: @iris-dialog-content-min-height
 }
 
 .iris-dialog > .iris-footer {
-
+    background: @iris-dialog-head-background;
 }
+
+
 
