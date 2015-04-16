@@ -45,10 +45,10 @@ iris.registe('overlay', {
 
         if ($.support.transition) {
             this.$overlay.one($.support.transition.end, function() {
-               $element.trigger('show.overlay.iris');
+               $element.trigger('show.iris.overlay');
             });
         } else {
-            $element.trigger('show.overlay.iris');
+            $element.trigger('show.iris.overlay');
         }
     },
 
@@ -66,10 +66,10 @@ iris.registe('overlay', {
 
         if ($.support.transition) {
             this.$overlay.one($.support.transition.end, function() {
-                $element.trigger('hide.overlay.iris');
+                $element.trigger('hide.iris.overlay');
             });
         } else {
-            $element.trigger('hide.overlay.iris');
+            $element.trigger('hide.iris.overlay');
         }
 
     },
