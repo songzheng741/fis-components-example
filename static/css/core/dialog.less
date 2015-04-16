@@ -1,0 +1,43 @@
+@iris-dialog-margin: 50px auto;
+@iris-dialog-padding: 20px;
+@iris-dialog-background: #fff;
+@iris-dialog-head-background: #fafafa;
+@iris-dialog-footer-background: #fafafa;
+
+/*
+ * ==========================
+ * 1. 方便关闭图标定位
+ * 2. 居中
+ * 3. 默认隐藏
+ */
+.iris-dialog {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 1 */
+    position: relative;
+    /* 2 */
+    margin: @iris-dialog-margin;
+    /* 3 */
+    display: none;
+    opacity: 0;
+
+    padding: @iris-dialog-padding;
+    background: @iris-dialog-background;
+    border-radius: 4px;
+
+    -webkik-transition: opacity .3s linear, transform .3s ease-out;
+    transition: opacity .3s linear, transform .3s ease-out;
+}
+
+.iris-dialog > .iris-head {
+
+}
+
+.iris-dialog > .iris-content {
+
+}
+
+.iris-dialog > .iris-footer {
+
+}
+
