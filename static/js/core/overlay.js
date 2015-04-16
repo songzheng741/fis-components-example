@@ -12,7 +12,7 @@ iris.registe('overlay', {
         var config = this.config;
 
         this.$overlay = $('<div class=""></div>');
-        if (config.fullscreen || this.$element.is('body') || this.$element.is('html')) {
+        if (config.fullscreen || this.$element.is('body') || this.$element.is('html') || this.$element.isWindow()) {
             this.$overlay.addClass('iris-overlay-fullscreen');
             $('body').append(this.$overlay);
         } else {
