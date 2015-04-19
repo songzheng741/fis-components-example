@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<script src="./jquery.js"></script>
+<body>
+abc
+</body>
+
+<script>
+    /**
+     * 获得本iframe相对parentWin iframe的距离
+     */
+    function offset2TopFrame(parentWin) {
+
+        var _top = 0,
+            _left = 0;
+
+        var currentWIN = self;
+
+        while (currentWIN != parentWin) {
+            _top += $(currentWIN.frameElement).offset() ? $(currentWIN.frameElement).offset().top : 0;
+            _left += $(currentWIN.frameElement).offset() ? $(currentWIN.frameElement).offset().left : 0;
+
+            currentWIN = currentWIN.parent;
+        }
+
+        return {
+            left: _left,
+            top: _top
+        }
+    }
+
+    /** 判断有无滚动条 **/
+    function isHasScrollBar(win) {
+        return win.innerWidth - $(win.document.body).width() > 0;
+    }
+
+    /** 获得第一个有滚动条的祖先 **/
+    function getHasScrollbarParent() {
+        var currentWIN = self;
+
+        while (currentWIN != top) {
+            //判断有无滚动条
+            if (isHasScrollBar(currentWIN)) {
+                return currentWIN;
+            } else {
+                currentWIN  = currentWIN.parent;
+            }
+        }
+    }
+
+    var parentWIN = getHasScrollbarParent();
+
+    if (parentWIN) {
+        $(parentWIN).scroll(debounce(go, 15));
+    }
+
+    function go() {
+        var top = $(parentWIN).scrollTop();
+        /** 判断滚动条到达iframe或它的祖先iframe都没有滚动条时 **/
+        if (!parentWIN || top > offset2TopFrame(parentWIN).top) {
+            $(self).trigger('scrollThisFrame.nuomi', self);
+        }
+    }
+
+    go();
+
+    /** 防止抖动 **/
+    function debounce(fn, time) {
+        if (!time) {
+            return function() {
+                fn.call(this, arguments);
+            }
+        } else {
+            return function() {
+                setTimeout(function() {
+                    fn.call(this, arguments);
+                }, time);
+            }
+        }
+    }
+
+    $(window).on('scrollThisFrame.nuomi', function(e, params) {
+        console.log(params);
+        $(params.document.body).append('1212121');
+    });
+</script>
+</html>

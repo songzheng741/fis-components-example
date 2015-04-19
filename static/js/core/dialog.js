@@ -1,5 +1,8 @@
 "use strict";
 
+require('./support');
+require('./overlay');
+
 var active = false;
 
 iris.registe('dialog', {
@@ -9,6 +12,11 @@ iris.registe('dialog', {
         width: 600,
         center: true,
         content: '',
+        autoShow: true,
+        position: {
+            left: 0,
+            top: 0
+        },
         btns: {
 
         },
@@ -28,7 +36,7 @@ iris.registe('dialog', {
                 $.trigger('loaded.iris.dialog');
             }, this));
         } else {
-            this.setContent(this.$element);
+            this.setContent($(config.content));
         }
 
         this.$container.append(this.$content);
@@ -41,24 +49,43 @@ iris.registe('dialog', {
         if (!$.isEmptyObject(config.btns)) {
             this.$footer = $('<div class="iris-dialog-footer"></div>');
 
-            $('body').append(this.$footer);
+            this.$container.append(this.$footer);
+        }
+
+        // show
+        if (config.autoShow) {
+            this.show(config.position);
         }
 
     },
 
-    show: function() {
+    show: function(position) {
+
+        var me = this;
 
         if (this.isActive()) {
             return;
-        } else {
+        } else if (active) {
             active.hide();
         }
 
-        setTimeout(function() {
-            this.$container.addClass('iris-open');
+        setTimeout(function() { //等待游览器原始渲染，再加class改变样式，否则css transition不会执行
+            me.$container.addClass('iris-open');
         }, 0);
 
-        this.$container.attr('aria-dialog-show', 'true')
+        this.$container.attr('aria-dialog-show', 'true');
+
+        this.setPosition();
+
+        if ($.support.transition) {
+            this.$container.one($.support.transition.end, function() {
+                me.$element.trigger('show.iris.dialog');
+            });
+        } else {
+            this.$element.trigger('show.iris.dialog');
+        }
+
+        active = this;
     },
 
     hide: function() {
@@ -66,7 +93,8 @@ iris.registe('dialog', {
     },
 
     setContent: function(content) {
-        this.$content.html(content);
+        var _clone = content.detach();
+        this.$content.html(_clone);
     },
 
     setPosition: function(position) {
@@ -77,8 +105,11 @@ iris.registe('dialog', {
     },
 
     getCenterPosition: function() {
-        var _top = ($(window).height() - this.$container.height()) / 2;
-        var _left = ($(window).height() - this.$container.height()) / 2;
+        var $win = $(window),
+            $elem = this.$element;
+
+        var _top = $win.scrollTop() + ($win.height() - this.$container.outerHeight()) / 2;
+        var _left = $win.scrollLeft() + $elem.offset().left + ($elem.width() - this.$container.outerWidth()) / 2;
 
         return {top: _top, left: _left};
     },

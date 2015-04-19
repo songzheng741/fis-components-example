@@ -3,40 +3,23 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <style>
-        #a > * > :last-child {
-            width: 200px;
-            height: 200px;
-            background: red;
-        }
-    </style>
+    <script src="jquery.js"></script>
 </head>
+<style>
+   input {
+       width: 200px;
+       height: 50px;
+   }
+</style>
 <body>
-<script>
-    var data = [
-        {
-            id: 1,
-            child: [
-                {
-                    id: 2,
-                    child: null
-                },
-                {
-                    id: 3,
-                    child: [
-                        {
-                            id: 4,
-                            child: null
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
-
-    function amount(data) {
-
-    }
-</script>
+<input type="text" />
+<button></button>
 </body>
+<script>
+    $('button').on('click', function() {
+        $.post('xss.html', function(rep){
+            $('body').append(rep);
+        }, 'text');
+    });
+</script>
 </html>
