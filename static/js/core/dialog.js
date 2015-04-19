@@ -7,6 +7,7 @@ iris.registe('dialog', {
     defaults: {
         remote: false,
         width: 600,
+        center: true,
         content: '',
         btns: {
 
@@ -19,6 +20,7 @@ iris.registe('dialog', {
         var config = this.config = $.extend(true, this.defaults, this.config);
 
         this.$container = $('<div class="iris-dialog"></div>');
+        this.$container.css('width', config.width);
         this.$content = $('<div class="iris-dialog-content"></div>');
 
         if (config.remote) {
@@ -26,7 +28,7 @@ iris.registe('dialog', {
                 $.trigger('loaded.iris.dialog');
             }, this));
         } else {
-            this.setContent(this.content);
+            this.setContent(this.$element);
         }
 
         this.$container.append(this.$content);
@@ -46,7 +48,16 @@ iris.registe('dialog', {
 
     show: function() {
 
-        this.$container.addClass('iris-open');
+        if (this.isActive()) {
+            return;
+        } else {
+            active.hide();
+        }
+
+        setTimeout(function() {
+            this.$container.addClass('iris-open');
+        }, 0);
+
         this.$container.attr('aria-dialog-show', 'true')
     },
 
@@ -54,16 +65,34 @@ iris.registe('dialog', {
 
     },
 
-    setContent: function() {
-        var config = this.config;
+    setContent: function(content) {
+        this.$content.html(content);
     },
 
-    setPosition: function() {
+    setPosition: function(position) {
+        if (this.config.center) {
+            position = this.getCenterPosition();
+        }
+        this.$container.css(position);
+    },
 
+    getCenterPosition: function() {
+        var _top = ($(window).height() - this.$container.height()) / 2;
+        var _left = ($(window).height() - this.$container.height()) / 2;
+
+        return {top: _top, left: _left};
+    },
+
+    resize: function() {
+        //todo
     },
 
     isActive: function() {
         return this == active;
+    },
+
+    destroy: function() {
+        this.$container.remove(true);
     }
 
 });
