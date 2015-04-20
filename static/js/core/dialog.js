@@ -31,6 +31,14 @@ iris.registe('dialog', {
         this.$container.css('width', config.width);
         this.$content = $('<div class="iris-dialog-content"></div>');
 
+        /** head **/
+        if (config.title) {
+            this.$head = $('<div class="iris-dialog-head"></div>').html('<h2>' + config.title + '</h2>');
+            this.$container.append(this.$head);
+        }
+        /** head **/
+
+        /** content **/
         if (config.remote) {
             this.$content.load(config.remote, $.proxy(function () {
                 $.trigger('loaded.iris.dialog');
@@ -38,19 +46,17 @@ iris.registe('dialog', {
         } else {
             this.setContent($(config.content));
         }
-
         this.$container.append(this.$content);
-        if (config.title) {
-            this.$head = $('<div class="iris-dialog-head"></div>').html('<h2>' + config.title + '</h2>');
-            $('body').append(this.$head);
-        }
-        $('body').append(this.$container);
+        /** content **/
 
+        /** footer **/
         if (!$.isEmptyObject(config.btns)) {
             this.$footer = $('<div class="iris-dialog-footer"></div>');
-
             this.$container.append(this.$footer);
         }
+        /** footer **/
+
+        $('body').append(this.$container);
 
         // show
         if (config.autoShow) {
@@ -67,6 +73,10 @@ iris.registe('dialog', {
             return;
         } else if (active) {
             active.hide();
+        }
+
+        if (this.config.modal) {
+            this.$element.overlay().show();
         }
 
         setTimeout(function() { //等待游览器原始渲染，再加class改变样式，否则css transition不会执行
@@ -86,9 +96,37 @@ iris.registe('dialog', {
         }
 
         active = this;
+
+        return this;
     },
 
     hide: function() {
+        var me = this;
+
+        if (!this.isActive()) {
+            return;
+        }
+
+        this.$container.removeClass('iris-open');
+
+        if (this.$overlay) {
+            this.$overlay.hide();
+        }
+        if ($.support.transition) {
+            this.$container.one($.support.transition.end, function() {
+                me.$element.trigger('hide.iris.dialog');
+            });
+        } else {
+            this.$element.trigger('hide.iris.dialog');
+        }
+
+        active = false;
+
+        if (this.config['autoDestroy']) {
+            this.destroy();
+        }
+
+        return this;
 
     },
 
@@ -123,6 +161,7 @@ iris.registe('dialog', {
     },
 
     destroy: function() {
+        this.$element.trigger('destroy.iris.dialog');
         this.$container.remove(true);
     }
 

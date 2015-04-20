@@ -9,10 +9,10 @@ iris.registe('overlay', {
     },
 
     init: function() {
-        var config = this.config;
+        var config = $.extend(true, this.defaults, this.config);
 
         this.$overlay = $('<div class=""></div>');
-        if (config.fullscreen || this.$element.is('body') || this.$element.is('html') || this.$element.isWindow()) {
+        if (config.fullscreen || this.$element.is('body') || this.$element.is('html') || $.isWindow(this.$element)) {
             this.$overlay.addClass('iris-overlay-fullscreen');
             $('body').append(this.$overlay);
         } else {
@@ -22,6 +22,8 @@ iris.registe('overlay', {
     },
 
     show: function() {
+
+        var $body = $('body');
 
         if (!this.$overlay) {
             this.init();
@@ -35,7 +37,7 @@ iris.registe('overlay', {
 
 
         $element.attr('aria-overlay-show', 'true');
-        $element.css('overflow', 'hidden');
+        $body.css('overflow', 'hidden');
 
         var offset = $element.offset();
         this.$overlay.css({
@@ -50,9 +52,13 @@ iris.registe('overlay', {
         } else {
             $element.trigger('show.iris.overlay');
         }
+
+        return this;
     },
 
     hide: function() {
+
+        var $body = $('body');
         var $element = this.$element;
 
         if (!$element.attr('aria-overlay-show')) {
@@ -60,7 +66,7 @@ iris.registe('overlay', {
         }
 
         $element.removeAttr('aria-overlay-show');
-        $element.css('overflow', 'auto');
+        $body.css('overflow', 'auto');
 
         this.$overlay.removeClass('iris-open');
 
@@ -72,6 +78,7 @@ iris.registe('overlay', {
             $element.trigger('hide.iris.overlay');
         }
 
+        return this;
     },
 
     toggle: function() {
@@ -80,6 +87,8 @@ iris.registe('overlay', {
         } else {
             this.hide();
         }
+
+        return this;
     },
 
     destroy: function() {

@@ -64,6 +64,7 @@
     var $ = require('jquery');
     $('#mark-btn').click(function(e) {
         $('.content').dialog({
+            title: '1212',
             content: 'p'
         });
     });
