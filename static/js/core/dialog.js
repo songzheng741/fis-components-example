@@ -32,7 +32,6 @@ iris.registe('dialog', {
         this.$container.css('width', config.width);
         this.$content = $('<div class="iris-dialog-content"></div>');
 
-        this.$container.height(1000);
         /** head **/
         if (config.title) {
             this.$head = $('<div class="iris-dialog-head"></div>').html('<h2>' + config.title + '</h2>');
@@ -165,8 +164,8 @@ iris.registe('dialog', {
     },
 
     _isOverflow: function() {
-        return this.$container.outerHeight() + this.$container.position().top
-                    > $(window).height();
+        return  this.$container.outerHeight() > $(window).outerHeight() &&
+                this.$container.outerHeight() + this.$container.position().top > $(window).height();
     },
 
     getCenterPosition: function() {
