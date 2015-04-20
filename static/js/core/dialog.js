@@ -133,6 +133,13 @@ iris.registe('dialog', {
             this.destroy();
         }
 
+        if (this.$overlay && this._isOverflow()) {
+            this.$element.height(this._oldHeight);
+            $('body').css('padding-right', 0);
+            $('body').css('overflow', 'auto');
+            this.$overlay.$el.height(this._oldHeight);
+        }
+
         return this;
 
     },
@@ -149,11 +156,11 @@ iris.registe('dialog', {
         this.$container.css(position);
 
         if (this.$overlay && this._isOverflow()) {
+            this._oldHeight = this.$element.height();
             this.$element.height(this.$container.outerHeight() + this.$container.offset().top + 100);
             $('body').css('padding-right', 0);
             $('body').css('overflow', 'auto');
             this.$overlay.$el.height(this.$container.outerHeight() + this.$container.offset().top + 100);
-
         }
     },
 
