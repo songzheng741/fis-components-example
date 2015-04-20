@@ -11,7 +11,7 @@ iris.registe('overlay', {
     init: function() {
         var config = $.extend(true, this.defaults, this.config);
 
-        this.$overlay = $('<div class=""></div>');
+        this.$el = this.$overlay = $('<div class=""></div>');
         if (config.fullscreen || this.$element.is('body') || this.$element.is('html') || $.isWindow(this.$element)) {
             this.$overlay.addClass('iris-overlay-fullscreen');
             $('body').append(this.$overlay);
@@ -37,6 +37,7 @@ iris.registe('overlay', {
 
 
         $element.attr('aria-overlay-show', 'true');
+        this._setScrollbar();
         $body.css('overflow', 'hidden');
 
         var offset = $element.offset();
@@ -66,6 +67,7 @@ iris.registe('overlay', {
         }
 
         $element.removeAttr('aria-overlay-show');
+        $('body').css('padding-right', 0);
         $body.css('overflow', 'auto');
 
         this.$overlay.removeClass('iris-open');
@@ -95,6 +97,15 @@ iris.registe('overlay', {
         this.$element.find('iris-overlay').remove(true);
         this.$element.data('overlay', null);
         this.$overlay = null;
+    },
+
+    _setScrollbar: function() {
+        var scrollBarWidth = window.innerWidth - $('body').width();
+        if (!scrollBarWidth) {
+            return;
+        } else {
+            $('body').css('padding-right', scrollBarWidth);
+        }
     }
 
 });

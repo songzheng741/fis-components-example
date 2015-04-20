@@ -24,6 +24,7 @@ iris.registe('dialog', {
     },
 
     init: function() {
+        var me = this;
 
         var config = this.config = $.extend(true, this.defaults, this.config);
 
@@ -31,6 +32,7 @@ iris.registe('dialog', {
         this.$container.css('width', config.width);
         this.$content = $('<div class="iris-dialog-content"></div>');
 
+        this.$container.height(1000);
         /** head **/
         if (config.title) {
             this.$head = $('<div class="iris-dialog-head"></div>').html('<h2>' + config.title + '</h2>');
@@ -55,7 +57,12 @@ iris.registe('dialog', {
             this.$container.append(this.$footer);
         }
         /** footer **/
-
+        if (this.config.modal) {
+            this.$overlay = this.$element.overlay();
+            this.$overlay.on('click', function() {
+                me.hide();
+            });
+        }
         $('body').append(this.$container);
 
         // show
@@ -75,11 +82,11 @@ iris.registe('dialog', {
             active.hide();
         }
 
-        if (this.config.modal) {
-            this.$element.overlay().show();
+        if (this.$overlay) {
+            this.$overlay.show();
         }
 
-        setTimeout(function() { //等待游览器原始渲染，再加class改变样式，否则css transition不会执行
+        setTimeout(function() { //等待游览器原始渲染，再加class改变样式，否则css transition不会执行, 更好的方式是给html设置一个样式，让其强制渲染
             me.$container.addClass('iris-open');
         }, 0);
 
@@ -140,14 +147,31 @@ iris.registe('dialog', {
             position = this.getCenterPosition();
         }
         this.$container.css(position);
+
+        if (this.$overlay && this._isOverflow()) {
+            this.$element.height(this.$container.outerHeight() + this.$container.offset().top + 100);
+            $('body').css('padding-right', 0);
+            $('body').css('overflow', 'auto');
+            this.$overlay.$el.height(this.$container.outerHeight() + this.$container.offset().top + 100);
+
+        }
+    },
+
+    _isOverflow: function() {
+        return this.$container.outerHeight() + this.$container.position().top
+                    > $(window).height();
     },
 
     getCenterPosition: function() {
         var $win = $(window),
             $elem = this.$element;
 
-        var _top = $win.scrollTop() + ($win.height() - this.$container.outerHeight()) / 2;
+        var _top = $win.scrollTop() + ($win.height() + $elem.offset().top - this.$container.outerHeight()) / 2;
         var _left = $win.scrollLeft() + $elem.offset().left + ($elem.width() - this.$container.outerWidth()) / 2;
+
+        if (this._isOverflow()) {
+            _top = $win.scrollTop() + $elem.offset().top + 50
+        }
 
         return {top: _top, left: _left};
     },
@@ -166,4 +190,5 @@ iris.registe('dialog', {
     }
 
 });
+
 
