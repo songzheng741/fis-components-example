@@ -1,13 +1,9 @@
 "use strict";
 
 var $ = require('jquery');
+var model = require('./Model');
+var View = require('./View');
 
-iris.registe('qtree', {
-    defaults: {
-        plugins: []
-    },
+function Tree(config) {
 
-    init: function() {
-
-    }
-});
+}
