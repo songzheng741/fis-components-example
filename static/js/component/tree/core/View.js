@@ -6,6 +6,15 @@ var Emitter = require('./Emitter');
 
 function View(config) {
 
+    var defaults = {
+        themes: {
+            name:                            false,             //bootstrap风格
+            url:                             false,             //css地址
+            stripes:                         false,
+            responsive:                      false
+        }
+    }
+
 }
 
 View.prototype.draw = function() {
