@@ -2,31 +2,22 @@
 
 var $ = require('jquery');
 
-function Tree(config) {
-    var defaults = {plugins: []};
-
-    var config = this.config = $.extend(true, defaults, config);
-
-    this.init();
-
-    var plugins = config['plugins'];
-
-    for (var i = 0; i < plugins.length; i++) {
-        var plugin = plugins[i];
-        plugin.call(this);
-
-    }
-}
-
-$.xtree = {};
-$.xtree.plugins = {
-    plugins: {},
-    registe: function(name, fn) {
-        this.plugins[name] = fn;
-    }
+$.xtree = {
+    version: '0.0.1'
 };
 
-
+$.xtree.plugins = {
+    plugins: {},
+    registe: function(name, fn, defaultConfig) {
+        this.plugins[name] = {
+            init: fn,
+            cfg: defaultConfig
+        };
+    },
+    remove: function(name) {
+        delete this.plugins[name];
+    }
+};
 
 $.fn.xtree = function(config) {
     var $elem = $(this);
@@ -37,3 +28,29 @@ $.fn.xtree = function(config) {
         return new Tree(config);
     }
 }
+
+
+function Tree(config) {
+    var defaults = {};
+
+    var config = this.config = $.extend(true, defaults, config);
+
+    this.init();
+
+    var plugins = $.xtree.plugins.plugins;
+
+    for (var name in plugins) {
+        var plugin = plugins[name];
+        if (plugin.init) {
+            plugin.init.call(this, $.extend(true, plugin.cfg, config[name] || {}))
+        }
+    }
+
+    return this;
+}
+
+Tree.prototype.init = function() {
+
+}
+
+
