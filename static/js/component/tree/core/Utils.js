@@ -4,6 +4,7 @@
 var $ = require('jquery');
 
 module.exports = {
+
     inherits: function(Super, Sub, staticProps) {
 
         var Constructor = null;
@@ -25,7 +26,7 @@ module.exports = {
         // 复制静态方法
         $.extend( true, Constructor, Super, staticProps || {} );
 
-        /** 因为父类的实例变量已经绑在子类的this上,所以干掉父类的实例变量  **/
+        // 因为父类的实例变量已经绑在子类的this上,所以干掉父类的实例变量
         Constructor.prototype = this.createObject(Super.prototype);
 
         Constructor.__super__ = Super.prototype;

@@ -4,7 +4,7 @@ var defaults = {
 }
 
 function Node() {
-    this.id = 'node_0';
+    this.id = '0';
     this.root = false;       //是否为根节点
     this.isLeaf = false;     //是否为叶子节点
     this.depth = 0;          //此节点所处深度
