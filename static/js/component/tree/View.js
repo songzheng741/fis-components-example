@@ -13,3 +13,6 @@ View.prototype.append = function(parentNode, childNode) {
 
 }
 
+View.prototype.draw = function(node) {
+
+}

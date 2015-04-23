@@ -2,7 +2,7 @@ var Node = require('./Node');
 
 
 function Model() {
-
+    this.root = null;
 }
 
 Model.prototype.fetch = function() {
