@@ -64,5 +64,9 @@ module.exports = {
                 me.travel($subUl, callback);
             }
         });
+    },
+
+    options: function($el) {
+        var configStr = $el.data('options');
     }
 }

@@ -20,7 +20,9 @@ function Node(props) {
 }
 
 
-Node.prototype.getSiblingNodes = function() {
+Node.getInstanceFormHtml = function($elem) {
+
+
 
 }
 

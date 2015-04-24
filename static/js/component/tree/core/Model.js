@@ -1,10 +1,14 @@
+"use strict";
+
 var jQuery = require('jquery');
 
 var Node = require('./Node');
-var noop = function() {};
 var utils = require('./Utils');
 
-function Model() {
+var noop = function() {};
+
+
+function Model(config) {
     this.root = null;
     this.lazy = false;
     this.url = false;
@@ -42,6 +46,7 @@ Model.prototype.data = function(content) {
     if (content instanceof jQuery) {
         var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
         utils.travel($ul, function(index, $node, $parent) {
+            //console.log($node[0].tagName);
 
         });
 
@@ -52,5 +57,6 @@ Model.prototype.data = function(content) {
 
     }
 }
+
 
 module.exports = Model;
