@@ -25,6 +25,8 @@ $.fn.xtree = function(config) {
         return $elem.data('xtree');
     } else {
         config = $(true, config, {el: $elem});
+        var tree = new Tree(config);
+        $elem.data('xtree', tree);
         return new Tree(config);
     }
 }
@@ -37,7 +39,7 @@ function Tree(config) {
 
     this.init();
 
-    var plugins = $.xtree.plugins.plugins;
+    var plugins = $.xtree.plugins['plugins'];
 
     for (var name in plugins) {
         var plugin = plugins[name];
