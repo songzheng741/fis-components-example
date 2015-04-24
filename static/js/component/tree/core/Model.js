@@ -1,5 +1,8 @@
+var jQuery = require('jquery');
+
 var Node = require('./Node');
 var noop = function() {};
+var utils = require('./Utils');
 
 function Model() {
     this.root = null;
@@ -32,8 +35,22 @@ Model.prototype.read = function(node) {
 
 }
 
-Model.prototype.html2Model = function(html) {
+/**
+ * @param {jquery|Object|String} content
+ */
+Model.prototype.data = function(content) {
+    if (content instanceof jQuery) {
+        var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
+        utils.travel($ul, function(index, $node, $parent) {
 
+        });
+
+
+    } else if (typeof content === 'object') {
+
+    } else if (typeof content === 'string') {
+
+    }
 }
 
 module.exports = Model;

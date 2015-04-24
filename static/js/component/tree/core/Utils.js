@@ -1,10 +1,18 @@
 /**
- * Created by songzheng on 15-4-20.
+ * 常用工具方法
+ * @author songzheng
  */
 var $ = require('jquery');
+var utils = require('./Utils');
 
 module.exports = {
-
+    /**
+     * 原形链继承
+     * @param Super                     超类
+     * @param Sub                       子类
+     * @param staticProps               静态遍历
+     * @returns {Function}              子类构造器
+     */
     inherits: function(Super, Sub, staticProps) {
 
         var Constructor = null;
@@ -42,5 +50,19 @@ module.exports = {
             Fn.prototype = proto;
             return new Fn();
         }
+    },
+
+    travel: function(tree, callback) {
+        var me = this;
+        var $parent = $(tree);
+        var $node = null;
+        $parent.find('>li').each(function(index, elem) {
+            $node = $(this);
+            callback(index, $node, $parent);
+            var $subUl = $node.find('>ul');
+            if ($subUl.size()) {
+                me.travel($subUl, callback);
+            }
+        });
     }
 }

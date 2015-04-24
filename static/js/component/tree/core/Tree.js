@@ -1,11 +1,13 @@
 "use strict";
 
 var $ = require('jquery');
+var View = require('./View');
+var Model = require('./Model');
 
 $.xtree = {
     version: '0.0.1',
     tree_counter: 0,
-    cache: {}
+    tree_cache: {}
 }
 
 $.xtree.plugins = {
@@ -26,7 +28,7 @@ $.fn.xtree = function(config) {
     if ($elem.data('xtree')) {
         return $elem.data('xtree');
     } else {
-        config = $(true, config, {el: $elem});
+        config = $.extend(true, config, {el: $elem});
         var tree = new Tree(config);
         $elem.data('xtree', tree);
         return tree;
@@ -56,8 +58,18 @@ function Tree(config) {
 Tree.prototype.init = function() {
     var config = this.config;
     var $el  = config.el;
+    if (!$el) {
+        return;
+    }
 
-    console.log($el);
+    var model = new Model();
+
+    //渲染html
+    if ($.nodeName($el[0], 'ul') || $el.find('ul:first').size()) {
+        model.data($el);  //根据html生成model
+    } else { //后台加载
+
+    }
 }
 
 
