@@ -3,8 +3,10 @@
 var $ = require('jquery');
 
 $.xtree = {
-    version: '0.0.1'
-};
+    version: '0.0.1',
+    tree_counter: 0,
+    cache: {}
+}
 
 $.xtree.plugins = {
     plugins: {},
@@ -27,7 +29,7 @@ $.fn.xtree = function(config) {
         config = $(true, config, {el: $elem});
         var tree = new Tree(config);
         $elem.data('xtree', tree);
-        return new Tree(config);
+        return tree;
     }
 }
 
@@ -52,7 +54,10 @@ function Tree(config) {
 }
 
 Tree.prototype.init = function() {
+    var config = this.config;
+    var $el  = config.el;
 
+    console.log($el);
 }
 
 

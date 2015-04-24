@@ -32,4 +32,8 @@ Model.prototype.read = function(node) {
 
 }
 
+Model.prototype.html2Model = function(html) {
+
+}
+
 module.exports = Model;

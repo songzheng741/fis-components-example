@@ -4,6 +4,8 @@
 var utils = require('./Utils');
 var Emitter = require('./Emitter');
 
+var noop = function() {};
+
 function View(config) {
 
     var defaults = {
@@ -12,12 +14,14 @@ function View(config) {
             url:                             false,             //css地址
             stripes:                         false,
             responsive:                      false
-        }
+        },
+        animate: false,
+        renderFn: noop
     }
 
 }
 
-View.prototype.draw = function() {
+View.prototype.render = function(node) {
 
 }
 
