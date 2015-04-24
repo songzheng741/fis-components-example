@@ -45,15 +45,18 @@ Model.prototype.read = function(node) {
 Model.prototype.data = function(content) {
     if (content instanceof jQuery) {
         var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
+        this.root = Node.getInstanceFormHtml($ul);
+
         utils.travel($ul, function(index, $node, $parent) {
             //console.log($node[0].tagName);
 
         });
 
-
     } else if (typeof content === 'object') {
 
+
     } else if (typeof content === 'string') {
+
 
     }
 }

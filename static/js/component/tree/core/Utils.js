@@ -68,5 +68,7 @@ module.exports = {
 
     options: function($el) {
         var configStr = $el.data('options');
+
+
     }
 }
