@@ -54,11 +54,11 @@ module.exports = {
 
     travel: function(tree, callback) {
         var me = this;
-        var $parent = $(tree);
+        var $ul = $(tree);
         var $node = null;
-        $parent.find('>li').each(function(index, elem) {
+        $ul.find('>li').each(function(index, elem) {
             $node = $(this);
-            callback(index, $node, $parent);
+            callback(index, $node, $ul.parent('li'));
             var $subUl = $node.find('>ul');
             if ($subUl.size()) {
                 me.travel($subUl, callback);

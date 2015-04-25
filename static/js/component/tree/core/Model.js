@@ -13,6 +13,7 @@ function Model(config) {
     this.lazy = false;
     this.url = false;
     this.filter = noop;
+    this.loaded = false;
 }
 
 Model.prototype.fetch = function() {
@@ -43,13 +44,26 @@ Model.prototype.read = function(node) {
  * @param {jquery|Object|String} content
  */
 Model.prototype.data = function(content) {
+    var me = this;
     if (content instanceof $) {
         var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
-        this.root = Node.getInstanceFormHtml($ul);
+        this.root = new Node({
+            'depth': 0,
+            'isRoot': true,
+            'index': 0,
+            'parentNode': null
+        }).data($ul);
 
         utils.travel($ul, function(index, $node, $parent) {
-            //console.log($node[0].tagName);
+            var node = new Node({
 
+                }).data($node);
+
+            if (!$parent.length) {
+                me.root.add();
+            } else {
+
+            }
         });
 
     } else if (typeof content === 'object') {

@@ -64,7 +64,6 @@ Tree.prototype.init = function() {
     }
 
     var model = new Model();
-
     //渲染html
     if ($.nodeName($el[0], 'ul') || $el.find('ul:first').size()) {
         model.data($el);  //根据html生成model
