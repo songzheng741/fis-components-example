@@ -14,6 +14,8 @@ function Model(config) {
     this.url = false;
     this.filter = noop;
     this.loaded = false;
+
+    $.extend(true, this, config);
 }
 
 Model.prototype.fetch = function() {
@@ -54,18 +56,17 @@ Model.prototype.data = function(content) {
             'parentNode': null
         }).data($ul);
 
-        utils.travel($ul, function(index, $node, $parent) {
-            var node = new Node({
-
-                }).data($node);
-
-            if (!$parent.length) {
-                me.root.add();
-            } else {
-
+        utils.travel($ul, function(index, $node, $parentLi) {
+            var parsetNode = me.root;
+            if ($parentLi.length) {
+                parsetNode = $parentLi.data('xtree-node');
             }
+            var node = new Node({
+                'index': index,
+                'parentNode': parsetNode
+            }).data($node);
+            parsetNode.add(node);
         });
-
     } else if (typeof content === 'object') {
 
 

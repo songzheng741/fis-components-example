@@ -23,11 +23,11 @@ function Node(props) {
     $.extend(true, me, props);
 
     this.depth = this.getDepth(true);
-
 }
 
 
 Node.prototype.data = function($elem) {
+    var me = this;
     this.orginElem = $elem;
 
     $elem.data('xtree-node', this);
@@ -36,7 +36,9 @@ Node.prototype.data = function($elem) {
 
     }
     if ($elem.is('li')) {
+        var a = $elem.find(':text');
 
+        console.log(a[0]);
     }
     return this;
 }
