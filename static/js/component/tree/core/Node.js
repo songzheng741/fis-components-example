@@ -23,6 +23,6 @@ function Node(props) {
 Node.getInstanceFormHtml = function($elem) {
     var options = $elem.data('options');
     var text = $elem.find();
-
+    
 }
 

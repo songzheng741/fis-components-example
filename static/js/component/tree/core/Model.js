@@ -1,6 +1,6 @@
 "use strict";
 
-var jQuery = require('jquery');
+var $ = require('jquery');
 
 var Node = require('./Node');
 var utils = require('./Utils');
@@ -43,7 +43,7 @@ Model.prototype.read = function(node) {
  * @param {jquery|Object|String} content
  */
 Model.prototype.data = function(content) {
-    if (content instanceof jQuery) {
+    if (content instanceof $) {
         var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
         this.root = Node.getInstanceFormHtml($ul);
 

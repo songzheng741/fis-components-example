@@ -66,9 +66,37 @@ module.exports = {
         });
     },
 
-    options: function($el) {
-        var configStr = $el.data('options');
+    str2json: function(str, notevil) {
+        try {
+            if (notevil) {
+                return JSON.parse(str
+                        //key-value统统变成被双引号包裹
+                        .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+                        .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';})
+                );
+            } else {
+                return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
+            }
+        } catch(e) {
+            return false;
+        }
+    },
 
+    options: function(string) {
 
+        if ($.isPlainObject(string)) {
+            return string;
+        }
+        var start = (string ? string.indexOf("{") : -1), options = {};
+
+        if (start != -1) {
+            try {
+                options = iris.str2json(string.substr(start));
+            } catch (e) {
+
+            }
+        }
+        return options;
     }
+
 }
