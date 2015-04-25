@@ -21,6 +21,9 @@ function Node(props) {
     var me = this;
 
     $.extend(true, me, props);
+
+    this.depth = this.getDepth(true);
+
 }
 
 
@@ -52,14 +55,15 @@ Node.prototype.add = function(node) {
  * @param force 是否从新计算树的深度
  * @returns {Number} 树的深度
  */
-Node.prototype.depth = function(force) {
+Node.prototype.getDepth = function(force) {
     if (force || !this.depth) {
         var i = 0;
         var parentNode = this.parentNode;
         while(parentNode != null) {
             i++;
-            parentNode = this.parentNode;
+            parentNode = parentNode.parentNode;
         }
+        this.depth = i;
         return i;
     } else {
         return this.depth;
