@@ -24,13 +24,13 @@ $.xtree.plugins = {
 };
 
 $.fn.xtree = function(config) {
-    $(this).each(function(index, $elem) {
-        if ($elem.data('xtree')) {
-            return $elem.data('xtree');
+    $(this).each(function(index, elem) {
+        if ($(elem).data('xtree')) {
+            return $(this).data('xtree');
         } else {
-            config = $.extend(true, config, {el: $elem}, {id: $.xtree.tree_counter++});
+            config = $.extend(true, config, {el: $(elem)}, {id: $.xtree.tree_counter++});
             var tree = new Tree(config);
-            $elem.data('xtree', tree);
+            $(elem).data('xtree', tree);
             return tree;
         }
     });

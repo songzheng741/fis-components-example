@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var utils = require('./Utils');
 
 function Node(props) {
     this.id = 0;
@@ -22,7 +23,10 @@ function Node(props) {
 
 Node.getInstanceFormHtml = function($elem) {
     var options = $elem.data('options');
-    var text = $elem.find();
+
+    console.log(utils.options(options));
     
 }
+
+module.exports = Node;
 
