@@ -27,7 +27,7 @@ function Node(props) {
 Node.prototype.data = function($elem) {
     this.orginElem = $elem;
 
-    $elem.data('x-tree-node', this);
+    $elem.data('xtree-node', this);
 
     if ($elem.is('ul')) {
 
@@ -45,6 +45,25 @@ Node.prototype.add = function(node) {
     }
 
     return this;
+}
+
+/**
+ * 获得节点的深度
+ * @param force 是否从新计算树的深度
+ * @returns {Number} 树的深度
+ */
+Node.prototype.depth = function(force) {
+    if (force || !this.depth) {
+        var i = 0;
+        var parentNode = this.parentNode;
+        while(parentNode != null) {
+            i++;
+            parentNode = this.parentNode;
+        }
+        return i;
+    } else {
+        return this.depth;
+    }
 }
 
 module.exports = Node;
