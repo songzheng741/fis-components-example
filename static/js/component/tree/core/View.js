@@ -6,7 +6,7 @@ var Emitter = require('./Emitter');
 
 var noop = function() {};
 
-var View = utils.inherits(Emitter, function() {
+var View = utils.inherits(Emitter, function(config) {
     var defaults = {
         themes: {
             name:                            false,             //bootstrap风格
@@ -17,10 +17,16 @@ var View = utils.inherits(Emitter, function() {
         animate: false,
         renderFn: noop
     }
+    this.config = $.extend(true, defaults, config);
+
 });
 
 View.prototype.render = function(node) {
-    console.log(node);
+    var $el = this.config.el;
+    if (!node.parentNode) {
+        $el.empty();
+
+    }
 }
 
 module.exports = View;

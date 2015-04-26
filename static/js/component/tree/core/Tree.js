@@ -40,7 +40,6 @@ $.fn.xtree = function(config) {
 function Tree(config) {
     this.ready = false;
 
-
     var defaults = {};
     var config = this.config = $.extend(true, defaults, config);
     this.init();
@@ -65,7 +64,7 @@ Tree.prototype.init = function() {
     $el.addClass('xtree');
 
     var model = new Model({
-        view: new View()
+        view: new View({el: $el})
     });
     //渲染html
     if ($.nodeName($el[0], 'ul') || $el.find('ul:first').size()) {

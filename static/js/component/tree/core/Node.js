@@ -4,9 +4,6 @@ var utils = require('./Utils');
 function Node(props) {
     this.uuid = '';
     this.loaded = false;     //节点是否载入
-    this.root = false        //是否为根节点
-    this.isLeaf = false;     //是否为叶子节点
-    this.depth = false;      //此节点所处深度,从0开始
     this.iconCls = '';       //图标样式
     this.text = '';          //显示文字
     this.parentNode = '';    //父节点
@@ -21,8 +18,6 @@ function Node(props) {
     var me = this;
 
     $.extend(true, me, props);
-
-    this.depth = this.getDepth(true);
 }
 
 
@@ -96,6 +91,10 @@ Node.prototype.getPath = function(force) {
 Node.prototype.refresh = function() {
     this.getDepth(true);
     this.getIndex(true);
+}
+
+Node.prototype.isLeaf = function() {
+    return !this.children || !this.children.length;
 }
 
 Node.prototype.getText = function() {
