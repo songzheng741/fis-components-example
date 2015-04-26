@@ -2,7 +2,7 @@ var $ = require('jquery');
 var utils = require('./Utils');
 
 function Node(props) {
-    this.id = 0;
+    this.uuid = '';
     this.loaded = false;     //节点是否载入
     this.root = false        //是否为根节点
     this.isLeaf = false;     //是否为叶子节点
@@ -12,11 +12,11 @@ function Node(props) {
     this.parentNode = '';    //父节点
     this.disable = false;    //节点是否不可用
     this.children = [];      //子节点
-    this.orginElem = '';     //节点原始html元素
     this.index = false;      //节点在同层的索引
     this.loaded = false;     //是否加载完成
     this.select = false;     //是否选中
     this.view = false;       //保留view的引用
+    this.rendered = false;   //已经渲染
 
     var me = this;
 
@@ -28,7 +28,6 @@ function Node(props) {
 
 Node.prototype.data = function($elem) {
     var me = this;
-    this.orginElem = $elem;
 
     $elem.data('xtree-node', this);
 
@@ -36,10 +35,15 @@ Node.prototype.data = function($elem) {
 
     }
     if ($elem.is('li')) {
-        var a = $elem.find(':text');
-
-        console.log(a[0]);
+        this.text = $elem.contents().filter(function() {
+           if ($.nodeName(this, 'ul')) {
+               return false;
+           } else {
+               return true;
+           }
+        });
     }
+
     return this;
 }
 
@@ -70,6 +74,32 @@ Node.prototype.getDepth = function(force) {
     } else {
         return this.depth;
     }
+}
+
+Node.prototype.getIndex = function(force) {
+    var parsetNode = this.parentNode;
+    if (parsetNode) {
+        for (var i = 0; i < parsetNode.children.length; i++) {
+            if (this == parsetNode.children[i]) {
+                return i;
+            }
+        }
+    } else {
+        return 0;
+    }
+}
+
+Node.prototype.getPath = function(force) {
+
+}
+
+Node.prototype.refresh = function() {
+    this.getDepth(true);
+    this.getIndex(true);
+}
+
+Node.prototype.getText = function() {
+    return this.text;
 }
 
 module.exports = Node;

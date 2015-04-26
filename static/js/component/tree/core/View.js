@@ -20,13 +20,11 @@ function View(config) {
     }
 
 }
+View = utils.inherits(Emitter, View);
 
 View.prototype.render = function(node) {
-
+    console.log(node);
 }
-
-
-View = utils.inherits(Emitter, View);
 
 module.exports = View;
 

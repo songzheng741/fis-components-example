@@ -4,6 +4,7 @@ var $ = require('jquery');
 
 var Node = require('./Node');
 var utils = require('./Utils');
+var Emitter = require('./Emitter');
 
 var noop = function() {};
 
@@ -14,9 +15,14 @@ function Model(config) {
     this.url = false;
     this.filter = noop;
     this.loaded = false;
+    this.view = false;
 
     $.extend(true, this, config);
+
+    this.bind();
 }
+Model = utils.inherits(Emitter, Model);
+
 
 Model.prototype.fetch = function() {
 
@@ -27,7 +33,7 @@ Model.prototype.isLazy = function() {
 }
 
 Model.prototype.add = function(parentNode, node) {
-
+    this.parentNode.add(node);
 }
 
 Model.prototype.delete = function(nodeId) {
@@ -35,10 +41,6 @@ Model.prototype.delete = function(nodeId) {
 }
 
 Model.prototype.update = function(parentNode, node) {
-
-}
-
-Model.prototype.read = function(node) {
 
 }
 
@@ -67,6 +69,8 @@ Model.prototype.data = function(content) {
             }).data($node);
             parsetNode.add(node);
         });
+        /** model层已经准备 **/
+        this.emit('ready.xtree.model', this.root);
     } else if (typeof content === 'object') {
 
 
@@ -76,5 +80,10 @@ Model.prototype.data = function(content) {
     }
 }
 
+Model.prototype.bind = function() {
+    this.on('ready.xtree.model', $.proxy(function() {
+        this.view.render(this.root);
+    }), this);
+}
 
 module.exports = Model;

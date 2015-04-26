@@ -3,14 +3,13 @@
  * @author songzheng
  */
 var $ = require('jquery');
-var utils = require('./Utils');
 
 module.exports = {
     /**
      * 原形链继承
      * @param Super                     超类
      * @param Sub                       子类
-     * @param staticProps               静态遍历
+     * @param staticProps               静态变量
      * @returns {Function}              子类构造器
      */
     inherits: function(Super, Sub, staticProps) {
