@@ -8,8 +8,7 @@ var Emitter = require('./Emitter');
 
 var noop = function() {};
 
-
-function Model(config) {
+var Model = utils.inherits(Emitter, function(config) {
     this.root = null;
     this.lazy = false;
     this.url = false;
@@ -20,9 +19,7 @@ function Model(config) {
     $.extend(true, this, config);
 
     this.bind();
-}
-Model = utils.inherits(Emitter, Model);
-
+});
 
 Model.prototype.fetch = function() {
 
@@ -48,6 +45,9 @@ Model.prototype.update = function(parentNode, node) {
  * @param {jquery|Object|String} content
  */
 Model.prototype.data = function(content) {
+
+    /** model层加载中 **/
+    this.emit('lading.xtree.model', this.root);
     var me = this;
     if (content instanceof $) {
         var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
@@ -69,8 +69,6 @@ Model.prototype.data = function(content) {
             }).data($node);
             parsetNode.add(node);
         });
-        /** model层已经准备 **/
-        this.emit('ready.xtree.model', this.root);
     } else if (typeof content === 'object') {
 
 
@@ -78,6 +76,8 @@ Model.prototype.data = function(content) {
 
 
     }
+    /** model层已经准备 **/
+    this.emit('ready.xtree.model', this.root);
 }
 
 Model.prototype.bind = function() {
