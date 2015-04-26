@@ -41,13 +41,17 @@ Model.prototype.update = function(parentNode, node) {
 
 }
 
+Model.prototype.getNode = function(nodeId) {
+
+}
+
 /**
  * @param {jquery|Object|String} content
  */
 Model.prototype.data = function(content) {
 
     /** model层加载中 **/
-    this.emit('lading.xtree.model', this.root);
+    this.emit('loading.xtree.model');
     var me = this;
     if (content instanceof $) {
         var $ul = $.nodeName(content[0], 'ul') ? content : content.find('ul:first');
@@ -55,7 +59,8 @@ Model.prototype.data = function(content) {
             'depth': 0,
             'isRoot': true,
             'index': 0,
-            'parentNode': null
+            'parentNode': null,
+            'uuid': $.xtree.node_counter++
         }).data($ul);
 
         utils.travel($ul, function(index, $node, $parentLi) {
@@ -65,7 +70,8 @@ Model.prototype.data = function(content) {
             }
             var node = new Node({
                 'index': index,
-                'parentNode': parsetNode
+                'parentNode': parsetNode,
+                'uuid': $.xtree.node_counter++
             }).data($node);
             parsetNode.add(node);
         });
@@ -82,6 +88,7 @@ Model.prototype.data = function(content) {
 
 Model.prototype.bind = function() {
     this.on('ready.xtree.model', $.proxy(function() {
+        this.view.empty();
         this.view.render(this.root);
     }), this);
 }

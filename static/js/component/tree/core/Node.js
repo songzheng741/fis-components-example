@@ -4,6 +4,7 @@ var utils = require('./Utils');
 function Node(props) {
     this.uuid = '';
     this.loaded = false;     //节点是否载入
+    this.id = '';            //节点id值
     this.iconCls = '';       //图标样式
     this.text = '';          //显示文字
     this.parentNode = '';    //父节点
@@ -29,14 +30,9 @@ Node.prototype.data = function($elem) {
     if ($elem.is('ul')) {
 
     }
+
     if ($elem.is('li')) {
-        this.text = $elem.contents().filter(function() {
-           if ($.nodeName(this, 'ul')) {
-               return false;
-           } else {
-               return true;
-           }
-        });
+        this.text = $elem.find('>span').text();
     }
 
     return this;
@@ -56,19 +52,14 @@ Node.prototype.add = function(node) {
  * @param force 是否从新计算树的深度
  * @returns {Number} 树的深度
  */
-Node.prototype.getDepth = function(force) {
-    if (force || !this.depth) {
-        var i = 0;
-        var parentNode = this.parentNode;
-        while(parentNode != null) {
-            i++;
-            parentNode = parentNode.parentNode;
-        }
-        this.depth = i;
-        return i;
-    } else {
-        return this.depth;
+Node.prototype.getDepth = function() {
+    var i = 0;
+    var parentNode = this.parentNode;
+    while(parentNode != null) {
+        i++;
+        parentNode = parentNode.parentNode;
     }
+    return i;
 }
 
 Node.prototype.getIndex = function(force) {
@@ -86,11 +77,6 @@ Node.prototype.getIndex = function(force) {
 
 Node.prototype.getPath = function(force) {
 
-}
-
-Node.prototype.refresh = function() {
-    this.getDepth(true);
-    this.getIndex(true);
 }
 
 Node.prototype.isLeaf = function() {

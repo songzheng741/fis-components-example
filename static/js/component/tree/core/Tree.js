@@ -7,6 +7,7 @@ var Model = require('./Model');
 $.xtree = {
     version: '0.0.1',
     tree_counter: 0,
+    node_counter: 0,
     tree_cache: {}
 }
 
@@ -28,7 +29,7 @@ $.fn.xtree = function(config) {
         if ($(elem).data('xtree')) {
             return $(this).data('xtree');
         } else {
-            config = $.extend(true, config, {el: $(elem)}, {id: $.xtree.tree_counter++});
+            config = $.extend(true, config, {el: $(elem)}, {tree_id: $.xtree.tree_counter++});
             var tree = new Tree(config);
             $(elem).data('xtree', tree);
             return tree;
@@ -42,9 +43,10 @@ function Tree(config) {
 
     var defaults = {};
     var config = this.config = $.extend(true, defaults, config);
-    this.init();
-    var plugins = $.xtree.plugins['plugins'];
 
+    this.init();
+
+    var plugins = $.xtree.plugins['plugins'];
     for (var name in plugins) {
         var plugin = plugins[name];
         if (plugin.init) {
@@ -63,11 +65,11 @@ Tree.prototype.init = function() {
     }
     $el.addClass('xtree');
 
-    var model = new Model({
-        view: new View({el: $el})
-    });
     //渲染html
     if ($.nodeName($el[0], 'ul') || $el.find('ul:first').size()) {
+        var model = new Model({
+            view: new View({el: $el})
+        });
         model.data($el);  //根据html生成model
     } else { //后台加载
 
